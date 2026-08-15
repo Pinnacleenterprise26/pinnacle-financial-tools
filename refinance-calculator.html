@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refinance Calculator | Pinnacle Financial Tools</title>
+<meta name="description" content="Estimate a new mortgage payment, monthly savings, closing-cost break-even point, and interest.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://pinnacle-financial-tools.netlify.app/refinance-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body><header class="site"><div class="site-inner"><div class="logo"><a class="brand-link" href="index.html"><span class="mark"></span>Pinnacle Financial Tools</a></div><nav class="site"><a href="index.html#calculators">Calculators</a><a href="about.html">About</a><a href="methodology.html">Methodology</a></nav></div></header><main><div class="breadcrumbs"><a href="index.html">All Calculators</a> / Refinance Calculator</div><section class="tool" id="refinance">
+  <div class="tool-hero">
+    <div class="eyebrow">Home</div>
+    <h2 class="tool-title">Refinance Calculator</h2>
+    <p class="lede">See your new payment, break-even point on closing costs, and lifetime interest savings from refinancing.</p>
+  </div>
+  <div class="calc-wrap">
+    <div class="panel">
+      <div class="field">
+        <label>Current loan balance <span class="val mono" id="r_balanceVal">$280,000</span></label>
+        <input type="range" id="r_balance" min="20000" max="1500000" step="5000" value="280000">
+      </div>
+      <div class="field">
+        <label>Current interest rate</label>
+        <div class="numfield"><input type="number" id="r_currentRate" value="7.2" step="0.05" min="0" max="20"><span>%</span></div>
+      </div>
+      <div class="field">
+        <label>New interest rate</label>
+        <div class="numfield"><input type="number" id="r_newRate" value="6.1" step="0.05" min="0" max="20"><span>%</span></div>
+      </div>
+      <div class="field">
+        <label>New loan term</label>
+        <select id="r_newTerm">
+          <option value="30">30 years</option>
+          <option value="20">20 years</option>
+          <option value="15">15 years</option>
+        </select>
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>Closing costs <span class="val mono" id="r_closingVal">$5,000</span></label>
+        <input type="range" id="r_closing" min="0" max="20000" step="250" value="5000">
+      </div>
+    </div>
+    <div class="result-panel">
+      <div class="result-top">
+        <div class="result-block"><div class="label">New monthly payment</div><div class="figure" id="r_newPayment">$0</div></div>
+        <div class="result-block small"><div class="label">Current monthly payment</div><div class="figure" id="r_currentPayment">$0</div></div>
+      </div>
+      <table class="breakdown-table">
+        <tr><td>Monthly savings</td><td id="r_rowMonthlySavings">$0</td></tr>
+        <tr><td>Break-even point (months to recoup closing costs)</td><td id="r_rowBreakeven">0</td></tr>
+        <tr><td>Lifetime interest - current loan (remaining)</td><td id="r_rowCurrentInterest">$0</td></tr>
+        <tr><td>Lifetime interest - new loan</td><td id="r_rowNewInterest">$0</td></tr>
+      </table>
+    </div>
+  </div>
+  <article class="guide">
+    <h3>When Refinancing Actually Makes Sense</h3>
+    <p>Refinancing typically makes sense when the new rate is meaningfully lower than your current rate and you plan to stay in the home past the break-even point - the number of months it takes for your monthly savings to cover the closing costs.</p>
+    <h3>Rate vs. Term Tradeoffs</h3>
+    <p>Refinancing into a shorter term at a lower rate can dramatically cut lifetime interest, even if the monthly payment doesn't drop much. Refinancing into a longer term can lower monthly payments but may reset the amortization clock, increasing total interest paid over time.</p>
+    <div class="disclaimer">Estimates only. Actual refinance terms, fees, and qualification depend on your lender and credit profile.</div>
+  </article>
+</section><section class="related"><h2>Explore More Calculators</h2><div class="related-grid"><a class="related-card" href="mortgage-calculator.html"><strong>Mortgage Calculator</strong><span>Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.</span></a><a class="related-card" href="loan-calculator.html"><strong>Loan & EMI Calculator</strong><span>Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.</span></a><a class="related-card" href="paycheck-calculator.html"><strong>Paycheck Calculator</strong><span>Estimate 2026 federal income tax, FICA, pre-tax deductions, and take-home pay.</span></a></div></section></main><footer class="site-footer"><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div><div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div></footer><script>function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+/* ---------- REFINANCE ---------- */
+(function(){
+  const balance = document.getElementById('r_balance');
+  const currentRate = document.getElementById('r_currentRate');
+  const newRate = document.getElementById('r_newRate');
+  const newTerm = document.getElementById('r_newTerm');
+  const closing = document.getElementById('r_closing');
+
+  function pmt(principal, monthlyRate, n){
+    if(monthlyRate===0) return principal/n;
+    const p = principal * (monthlyRate*Math.pow(1+monthlyRate,n))/(Math.pow(1+monthlyRate,n)-1);
+    return isFinite(p) ? p : 0;
+  }
+
+  function calculate(){
+    const bal = parseFloat(balance.value);
+    const curRate = parseFloat(currentRate.value)||0;
+    const nuRate = parseFloat(newRate.value)||0;
+    const nuTermYears = parseInt(newTerm.value);
+    const closingCost = parseFloat(closing.value)||0;
+
+    document.getElementById('r_balanceVal').textContent = fmt(bal);
+    document.getElementById('r_closingVal').textContent = fmt(closingCost);
+
+    // assume current loan has same term remaining as new term for a fair lifetime interest comparison estimate
+    const curMonthly = pmt(bal, curRate/100/12, nuTermYears*12);
+    const nuMonthly = pmt(bal, nuRate/100/12, nuTermYears*12);
+
+    const curTotalInterest = curMonthly*nuTermYears*12 - bal;
+    const nuTotalInterest = nuMonthly*nuTermYears*12 - bal;
+
+    const monthlySavings = curMonthly - nuMonthly;
+    const breakeven = monthlySavings>0 ? Math.ceil(closingCost/monthlySavings) : Infinity;
+
+    document.getElementById('r_newPayment').textContent = fmt(nuMonthly);
+    document.getElementById('r_currentPayment').textContent = fmt(curMonthly);
+    document.getElementById('r_rowMonthlySavings').textContent = fmt(monthlySavings);
+    document.getElementById('r_rowBreakeven').textContent = isFinite(breakeven) ? breakeven + ' months' : 'Never (no savings)';
+    document.getElementById('r_rowCurrentInterest').textContent = fmt(curTotalInterest);
+    document.getElementById('r_rowNewInterest').textContent = fmt(nuTotalInterest);
+  }
+  [balance, currentRate, newRate, newTerm, closing].forEach(el=>{ el.addEventListener('input', calculate); el.addEventListener('change', calculate); });
+  calculate();
+})();
+/* ---------- SCHEDULE TOGGLES ---------- */
+document.querySelectorAll('.schedule-toggle').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const table = document.getElementById(this.dataset.target);
+    table.classList.toggle('open');
+    const isOpen = table.classList.contains('open');
+    this.textContent = this.textContent.replace(isOpen ? '↓' : '↑', isOpen ? '↑' : '↓').replace('View', isOpen ? 'Hide' : 'View').replace('Hide full', isOpen ? 'Hide full' : 'View full');
+  });
+});</script></body></html>

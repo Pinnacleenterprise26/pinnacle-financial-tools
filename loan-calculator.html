@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan &amp; EMI Calculator | Pinnacle Financial Tools</title>
+<meta name="description" content="Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://pinnacle-financial-tools.netlify.app/loan-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body><header class="site"><div class="site-inner"><div class="logo"><a class="brand-link" href="index.html"><span class="mark"></span>Pinnacle Financial Tools</a></div><nav class="site"><a href="index.html#calculators">Calculators</a><a href="about.html">About</a><a href="methodology.html">Methodology</a></nav></div></header><main><div class="breadcrumbs"><a href="index.html">All Calculators</a> / Loan &amp; EMI Calculator</div><section class="tool" id="loan">
+  <div class="tool-hero">
+    <div class="eyebrow">Loans</div>
+    <h2 class="tool-title">Loan &amp; EMI Calculator</h2>
+    <p class="lede">Estimate your monthly payment on any personal, auto, or fixed-term loan - plus see how extra payments shrink your total interest and payoff time.</p>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="panel">
+      <div class="field">
+        <label>Loan amount <span class="val mono" id="l_loanAmtVal">$20,000</span></label>
+        <input type="range" id="l_loanAmt" min="1000" max="150000" step="500" value="20000">
+      </div>
+      <div class="field">
+        <label>Interest rate (annual)</label>
+        <div class="numfield"><input type="number" id="l_rate" value="8.5" step="0.1" min="0" max="35"><span>%</span></div>
+      </div>
+      <div class="field">
+        <label>Loan term</label>
+        <div class="numfield"><input type="number" id="l_termMonths" value="48" step="1" min="1" max="360"><span>months</span></div>
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>Extra monthly payment <span class="val mono" id="l_extraVal">$0</span></label>
+        <input type="range" id="l_extra" min="0" max="1000" step="10" value="0">
+      </div>
+    </div>
+
+    <div class="result-panel">
+      <div class="result-top">
+        <div class="result-block"><div class="label">Monthly payment</div><div class="figure" id="l_monthlyPayment">$0</div></div>
+        <div class="result-block small"><div class="label">Payoff time</div><div class="figure" id="l_payoffTime">-</div></div>
+      </div>
+      <div>
+        <div class="split-bar"><div id="l_splitP" style="background:var(--principal); width:50%"></div><div id="l_splitI" style="background:var(--interest); width:50%"></div></div>
+        <div class="split-legend" style="margin-top:10px;">
+          <span><span class="dot" style="background:var(--principal);"></span>Principal <span id="l_totalPrincipalLabel" class="mono"></span></span>
+          <span><span class="dot" style="background:var(--interest);"></span>Total interest <span id="l_totalInterestLabel" class="mono"></span></span>
+        </div>
+      </div>
+      <div class="result-top" style="border-top:1px solid rgba(255,255,255,.15); padding-top:18px;">
+        <div class="result-block small"><div class="label">Total repayment</div><div class="figure" id="l_totalRepay">$0</div></div>
+        <div class="result-block small"><div class="label">Interest saved by extra payment</div><div class="figure" id="l_interestSaved">$0</div></div>
+      </div>
+      <button class="schedule-toggle" data-target="l_scheduleTable">View full payment schedule ↓</button>
+    </div>
+  </div>
+
+  <div class="schedule-table" id="l_scheduleTable">
+    <table><thead><tr><th>Year</th><th>Principal paid</th><th>Interest paid</th><th>Remaining balance</th></tr></thead><tbody id="l_scheduleBody"></tbody></table>
+  </div>
+
+  <article class="guide">
+    <h3>How EMI Is Calculated</h3>
+    <p>EMI stands for Equated Monthly Installment - a fixed payment covering both interest and principal, so the loan is fully paid off by the end of the term. Early payments are interest-heavy; later payments are principal-heavy, since interest is calculated on whatever balance remains.</p>
+    <h3>Fixed vs. Reducing Balance Interest</h3>
+    <p>Most personal and auto loans use reducing balance interest - charged only on the remaining balance, which shrinks each month. Flat-rate loans, by contrast, charge interest on the original amount for the whole term, costing meaningfully more for the same stated rate.</p>
+    <h3>What Extra Payments Actually Do</h3>
+    <p>Extra payments go straight toward reducing principal rather than being split like a regular payment. Because future interest is calculated on a smaller balance, even modest extra payments early on can meaningfully shorten the payoff timeline.</p>
+    <h3>Comparing Loan Offers Properly</h3>
+    <p>Always compare total repayment - principal plus all interest and fees - rather than just the monthly payment or headline rate, since a lower monthly payment often just means a longer term and more interest paid overall.</p>
+    <div class="disclaimer">Estimates only. Actual loan terms depend on your lender and credit profile.</div>
+  </article>
+</section><section class="related"><h2>Explore More Calculators</h2><div class="related-grid"><a class="related-card" href="mortgage-calculator.html"><strong>Mortgage Calculator</strong><span>Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.</span></a><a class="related-card" href="paycheck-calculator.html"><strong>Paycheck Calculator</strong><span>Estimate 2026 federal income tax, FICA, pre-tax deductions, and take-home pay.</span></a><a class="related-card" href="auto-loan-calculator.html"><strong>Auto Loan Calculator</strong><span>Estimate a vehicle payment, interest cost, sales tax, and total purchase cost.</span></a></div></section></main><footer class="site-footer"><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div><div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div></footer><script>function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+/* ---------- LOAN / EMI ---------- */
+(function(){
+  const loanAmt = document.getElementById('l_loanAmt');
+  const rate = document.getElementById('l_rate');
+  const termMonths = document.getElementById('l_termMonths');
+  const extra = document.getElementById('l_extra');
+  let scheduleData = [];
+
+  function calculate(){
+    const principal = parseFloat(loanAmt.value);
+    const annualRate = parseFloat(rate.value) || 0;
+    const monthlyRate = annualRate / 100 / 12;
+    const n = parseInt(termMonths.value) || 1;
+    const extraPay = parseFloat(extra.value) || 0;
+
+    document.getElementById('l_loanAmtVal').textContent = fmt(principal);
+    document.getElementById('l_extraVal').textContent = fmt(extraPay) + '/mo';
+
+    let basePayment = monthlyRate === 0 ? principal/n : principal * (monthlyRate * Math.pow(1+monthlyRate, n)) / (Math.pow(1+monthlyRate, n) - 1);
+    if(!isFinite(basePayment)) basePayment = 0;
+    document.getElementById('l_monthlyPayment').textContent = fmt(basePayment + extraPay);
+
+    let balance = principal, totalInterest = 0, month = 0;
+    scheduleData = [];
+    let yearPrincipal = 0, yearInterest = 0;
+    while(balance > 0.5 && month < 1200){
+      month++;
+      const interestPortion = balance * monthlyRate;
+      let principalPortion = basePayment - interestPortion + extraPay;
+      if(principalPortion > balance) principalPortion = balance;
+      balance -= principalPortion;
+      totalInterest += interestPortion;
+      yearPrincipal += principalPortion;
+      yearInterest += interestPortion;
+      if(month % 12 === 0 || balance <= 0.5){
+        scheduleData.push({year: Math.ceil(month/12), principal: yearPrincipal, interest: yearInterest, balance: Math.max(balance,0)});
+        yearPrincipal = 0; yearInterest = 0;
+      }
+    }
+
+    let baseBalance = principal, baseInterest = 0, baseMonth = 0;
+    while(baseBalance > 0.5 && baseMonth < 1200){
+      baseMonth++;
+      const ip = baseBalance * monthlyRate;
+      let pp = basePayment - ip;
+      if(pp > baseBalance) pp = baseBalance;
+      baseBalance -= pp;
+      baseInterest += ip;
+    }
+
+    const totalRepay = principal + totalInterest;
+    document.getElementById('l_totalRepay').textContent = fmt(totalRepay);
+    document.getElementById('l_totalPrincipalLabel').textContent = fmt(principal);
+    document.getElementById('l_totalInterestLabel').textContent = fmt(totalInterest);
+    document.getElementById('l_interestSaved').textContent = fmt(Math.max(baseInterest - totalInterest,0));
+
+    const pShare = totalRepay > 0 ? (principal/totalRepay*100) : 50;
+    document.getElementById('l_splitP').style.width = pShare + '%';
+    document.getElementById('l_splitI').style.width = (100-pShare) + '%';
+
+    const years = Math.floor(month/12), months = month % 12;
+    document.getElementById('l_payoffTime').textContent = (years>0? years+'y ':'') + months+'mo';
+
+    const tbody = document.getElementById('l_scheduleBody');
+    tbody.innerHTML = '';
+    scheduleData.forEach(row=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${row.year}</td><td>${fmt(row.principal)}</td><td>${fmt(row.interest)}</td><td>${fmt(row.balance)}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  [loanAmt, rate, termMonths, extra].forEach(el=>{
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+})();
+/* ---------- SCHEDULE TOGGLES ---------- */
+document.querySelectorAll('.schedule-toggle').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const table = document.getElementById(this.dataset.target);
+    table.classList.toggle('open');
+    const isOpen = table.classList.contains('open');
+    this.textContent = this.textContent.replace(isOpen ? '↓' : '↑', isOpen ? '↑' : '↓').replace('View', isOpen ? 'Hide' : 'View').replace('Hide full', isOpen ? 'Hide full' : 'View full');
+  });
+});</script></body></html>

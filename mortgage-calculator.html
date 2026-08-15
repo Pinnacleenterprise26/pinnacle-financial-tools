@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator | Pinnacle Financial Tools</title>
+<meta name="description" content="Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://pinnacle-financial-tools.netlify.app/mortgage-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body><header class="site"><div class="site-inner"><div class="logo"><a class="brand-link" href="index.html"><span class="mark"></span>Pinnacle Financial Tools</a></div><nav class="site"><a href="index.html#calculators">Calculators</a><a href="about.html">About</a><a href="methodology.html">Methodology</a></nav></div></header><main><div class="breadcrumbs"><a href="index.html">All Calculators</a> / Mortgage Calculator</div><section class="tool" id="mortgage">
+  <div class="tool-hero">
+    <div class="eyebrow">Home &amp; Mortgage</div>
+    <h2 class="tool-title">Mortgage Calculator</h2>
+    <p class="lede">See your real monthly payment - principal, interest, taxes, and insurance together - plus the full amortization schedule for the life of your loan.</p>
+  </div>
+
+  <div class="calc-wrap">
+    <div class="panel">
+      <div class="field">
+        <label>Home price <span class="val mono" id="m_homePriceVal">$400,000</span></label>
+        <input type="range" id="m_homePrice" min="50000" max="2000000" step="5000" value="400000">
+      </div>
+      <div class="field">
+        <label>Down payment <span class="val mono" id="m_downPctVal">20% · $80,000</span></label>
+        <input type="range" id="m_downPct" min="0" max="50" step="1" value="20">
+      </div>
+      <div class="field">
+        <label>Interest rate (annual)</label>
+        <div class="numfield"><input type="number" id="m_rate" value="6.5" step="0.05" min="0" max="20"><span>%</span></div>
+      </div>
+      <div class="field">
+        <label>Loan term</label>
+        <select id="m_term">
+          <option value="30">30 years</option>
+          <option value="20">20 years</option>
+          <option value="15">15 years</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Property tax (annual)</label>
+        <div class="numfield"><span>$</span><input type="number" id="m_propTax" value="4200" step="50" min="0"></div>
+      </div>
+      <div class="field">
+        <label>Home insurance (annual)</label>
+        <div class="numfield"><span>$</span><input type="number" id="m_insurance" value="1400" step="50" min="0"></div>
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>HOA fees (monthly)</label>
+        <div class="numfield"><span>$</span><input type="number" id="m_hoa" value="0" step="10" min="0"></div>
+      </div>
+    </div>
+
+    <div class="result-panel">
+      <div class="result-top">
+        <div class="result-block"><div class="label">Total monthly payment</div><div class="figure" id="m_totalMonthly">$0</div></div>
+        <div class="result-block small"><div class="label">Principal &amp; interest</div><div class="figure" id="m_piMonthly">$0</div></div>
+      </div>
+      <div>
+        <div class="split-bar"><div id="m_splitP" style="background:var(--principal); width:50%"></div><div id="m_splitI" style="background:var(--interest); width:50%"></div></div>
+        <div class="split-legend" style="margin-top:10px;">
+          <span><span class="dot" style="background:var(--principal);"></span>Principal <span id="m_totalPrincipalLabel" class="mono"></span></span>
+          <span><span class="dot" style="background:var(--interest);"></span>Total interest <span id="m_totalInterestLabel" class="mono"></span></span>
+        </div>
+      </div>
+      <div class="result-top" style="border-top:1px solid rgba(255,255,255,.15); padding-top:18px;">
+        <div class="result-block small"><div class="label">Loan amount</div><div class="figure" id="m_loanAmount">$0</div></div>
+        <div class="result-block small"><div class="label">Payoff date</div><div class="figure" id="m_payoffDate">-</div></div>
+      </div>
+      <button class="schedule-toggle" data-target="m_scheduleTable">View full amortization schedule ↓</button>
+    </div>
+  </div>
+
+  <div class="schedule-table" id="m_scheduleTable">
+    <table><thead><tr><th>Year</th><th>Principal paid</th><th>Interest paid</th><th>Remaining balance</th></tr></thead><tbody id="m_scheduleBody"></tbody></table>
+  </div>
+
+  <article class="guide">
+    <h3>How This Mortgage Calculator Works</h3>
+    <p>Your monthly mortgage payment is made up of more than just paying back what you borrowed. This calculator estimates your full monthly cost by combining four components, often remembered by the acronym PITI: Principal, Interest, Taxes, and Insurance. Principal is the portion that goes toward paying down the actual loan balance, while interest is the cost of borrowing, calculated on your remaining balance each month.</p>
+    <h3>Why Your Rate Matters More Than You'd Think</h3>
+    <p>A seemingly small difference in interest rate can add up to tens of thousands of dollars over a 30-year loan, since interest compounds on your remaining balance every month. This is why it's worth shopping multiple lenders rather than accepting the first rate offered.</p>
+    <h3>Understanding Your Amortization Schedule</h3>
+    <p>An amortization schedule breaks down exactly how much of each payment goes to principal versus interest, year by year. In the early years, interest dominates; as the balance shrinks, more of each payment shifts toward principal - which is why extra payments early in the loan can meaningfully shorten the term.</p>
+    <h3>Common Mistakes When Estimating a Mortgage</h3>
+    <p>A frequent mistake is looking only at principal-and-interest and forgetting taxes, insurance, and HOA fees. Another is not accounting for PMI, which typically applies when the down payment is under 20%. Always compare total interest paid, not just the monthly payment.</p>
+    <div class="disclaimer">Estimates only. Actual mortgage terms depend on your lender, credit profile, and local requirements.</div>
+  </article>
+</section><section class="related"><h2>Explore More Calculators</h2><div class="related-grid"><a class="related-card" href="loan-calculator.html"><strong>Loan & EMI Calculator</strong><span>Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.</span></a><a class="related-card" href="paycheck-calculator.html"><strong>Paycheck Calculator</strong><span>Estimate 2026 federal income tax, FICA, pre-tax deductions, and take-home pay.</span></a><a class="related-card" href="auto-loan-calculator.html"><strong>Auto Loan Calculator</strong><span>Estimate a vehicle payment, interest cost, sales tax, and total purchase cost.</span></a></div></section></main><footer class="site-footer"><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div><div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div></footer><script>function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+/* ---------- MORTGAGE ---------- */
+(function(){
+  const homePrice = document.getElementById('m_homePrice');
+  const downPct = document.getElementById('m_downPct');
+  const rate = document.getElementById('m_rate');
+  const term = document.getElementById('m_term');
+  const propTax = document.getElementById('m_propTax');
+  const insurance = document.getElementById('m_insurance');
+  const hoa = document.getElementById('m_hoa');
+  let scheduleData = [];
+
+  function calculate(){
+    const price = parseFloat(homePrice.value);
+    const dPct = parseFloat(downPct.value);
+    const downAmt = price * dPct / 100;
+    const loanAmt = price - downAmt;
+    const annualRate = parseFloat(rate.value) || 0;
+    const monthlyRate = annualRate / 100 / 12;
+    const years = parseInt(term.value);
+    const n = years * 12;
+
+    document.getElementById('m_homePriceVal').textContent = fmt(price);
+    document.getElementById('m_downPctVal').textContent = dPct + '% · ' + fmt(downAmt);
+
+    let monthlyPI = monthlyRate === 0 ? loanAmt/n : loanAmt * (monthlyRate * Math.pow(1+monthlyRate, n)) / (Math.pow(1+monthlyRate, n) - 1);
+    if(!isFinite(monthlyPI)) monthlyPI = 0;
+
+    const monthlyTax = (parseFloat(propTax.value)||0) / 12;
+    const monthlyIns = (parseFloat(insurance.value)||0) / 12;
+    const monthlyHOA = parseFloat(hoa.value) || 0;
+    const totalMonthly = monthlyPI + monthlyTax + monthlyIns + monthlyHOA;
+
+    document.getElementById('m_totalMonthly').textContent = fmt(totalMonthly);
+    document.getElementById('m_piMonthly').textContent = fmt(monthlyPI) + '/mo';
+    document.getElementById('m_loanAmount').textContent = fmt(loanAmt);
+
+    let balance = loanAmt, totalInterest = 0;
+    scheduleData = [];
+    let yearPrincipal = 0, yearInterest = 0;
+    for(let m=1; m<=n; m++){
+      const interestPortion = balance * monthlyRate;
+      const principalPortion = monthlyPI - interestPortion;
+      balance -= principalPortion;
+      if(balance < 0) balance = 0;
+      totalInterest += interestPortion;
+      yearPrincipal += principalPortion;
+      yearInterest += interestPortion;
+      if(m % 12 === 0 || m === n){
+        scheduleData.push({year: Math.ceil(m/12), principal: yearPrincipal, interest: yearInterest, balance});
+        yearPrincipal = 0; yearInterest = 0;
+      }
+    }
+
+    const totalCost = loanAmt + totalInterest;
+    const pShare = totalCost > 0 ? (loanAmt/totalCost*100) : 50;
+    document.getElementById('m_splitP').style.width = pShare + '%';
+    document.getElementById('m_splitI').style.width = (100-pShare) + '%';
+    document.getElementById('m_totalPrincipalLabel').textContent = fmt(loanAmt);
+    document.getElementById('m_totalInterestLabel').textContent = fmt(totalInterest);
+
+    const payoff = new Date();
+    payoff.setFullYear(payoff.getFullYear() + years);
+    document.getElementById('m_payoffDate').textContent = payoff.toLocaleDateString('en-US',{month:'short', year:'numeric'});
+
+    const tbody = document.getElementById('m_scheduleBody');
+    tbody.innerHTML = '';
+    scheduleData.forEach(row=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${row.year}</td><td>${fmt(row.principal)}</td><td>${fmt(row.interest)}</td><td>${fmt(row.balance)}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  [homePrice, downPct, rate, term, propTax, insurance, hoa].forEach(el=>{
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+})();
+/* ---------- SCHEDULE TOGGLES ---------- */
+document.querySelectorAll('.schedule-toggle').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const table = document.getElementById(this.dataset.target);
+    table.classList.toggle('open');
+    const isOpen = table.classList.contains('open');
+    this.textContent = this.textContent.replace(isOpen ? '↓' : '↑', isOpen ? '↑' : '↓').replace('View', isOpen ? 'Hide' : 'View').replace('Hide full', isOpen ? 'Hide full' : 'View full');
+  });
+});</script></body></html>

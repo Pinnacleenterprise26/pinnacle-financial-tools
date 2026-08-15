@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debt Payoff Calculator | Pinnacle Financial Tools</title>
+<meta name="description" content="Compare debt snowball and debt avalanche strategies across multiple balances.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://pinnacle-financial-tools.netlify.app/debt-payoff-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body><header class="site"><div class="site-inner"><div class="logo"><a class="brand-link" href="index.html"><span class="mark"></span>Pinnacle Financial Tools</a></div><nav class="site"><a href="index.html#calculators">Calculators</a><a href="about.html">About</a><a href="methodology.html">Methodology</a></nav></div></header><main><div class="breadcrumbs"><a href="index.html">All Calculators</a> / Debt Payoff Calculator</div><section class="tool" id="debtpayoff">
+  <div class="tool-hero">
+    <div class="eyebrow">Debt</div>
+    <h2 class="tool-title">Debt Payoff Calculator</h2>
+    <p class="lede">Compare the snowball method (smallest balance first) against the avalanche method (highest interest first) across up to three debts.</p>
+  </div>
+  <div class="calc-wrap">
+    <div class="panel">
+      <div class="field">
+        <label style="margin-bottom:4px;">Debt 1 - balance / rate / min payment</label>
+        <div style="display:flex; gap:8px;">
+          <div class="numfield"><span>$</span><input type="number" id="d_bal1" value="3000" min="0"></div>
+          <div class="numfield"><input type="number" id="d_rate1" value="22" step="0.5" min="0"><span>%</span></div>
+          <div class="numfield"><span>$</span><input type="number" id="d_min1" value="75" min="0"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label style="margin-bottom:4px;">Debt 2 - balance / rate / min payment</label>
+        <div style="display:flex; gap:8px;">
+          <div class="numfield"><span>$</span><input type="number" id="d_bal2" value="7000" min="0"></div>
+          <div class="numfield"><input type="number" id="d_rate2" value="16" step="0.5" min="0"><span>%</span></div>
+          <div class="numfield"><span>$</span><input type="number" id="d_min2" value="150" min="0"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label style="margin-bottom:4px;">Debt 3 - balance / rate / min payment (optional, 0 to skip)</label>
+        <div style="display:flex; gap:8px;">
+          <div class="numfield"><span>$</span><input type="number" id="d_bal3" value="0" min="0"></div>
+          <div class="numfield"><input type="number" id="d_rate3" value="10" step="0.5" min="0"><span>%</span></div>
+          <div class="numfield"><span>$</span><input type="number" id="d_min3" value="0" min="0"></div>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>Extra monthly amount available <span class="val mono" id="d_extraVal">$150</span></label>
+        <input type="range" id="d_extra" min="0" max="2000" step="10" value="150">
+      </div>
+    </div>
+    <div class="result-panel">
+      <div class="result-top">
+        <div class="result-block small"><div class="label">Snowball - months to debt-free</div><div class="figure" id="d_snowballMonths">0</div></div>
+        <div class="result-block small"><div class="label">Avalanche - months to debt-free</div><div class="figure" id="d_avalancheMonths">0</div></div>
+      </div>
+      <div class="result-top" style="border-top:1px solid rgba(255,255,255,.15); padding-top:18px;">
+        <div class="result-block small"><div class="label">Snowball - total interest</div><div class="figure" id="d_snowballInterest">$0</div></div>
+        <div class="result-block small"><div class="label">Avalanche - total interest</div><div class="figure" id="d_avalancheInterest">$0</div></div>
+      </div>
+      <div class="result-block small" style="border-top:1px solid rgba(255,255,255,.15); padding-top:18px;">
+        <div class="label">Interest saved using avalanche</div>
+        <div class="figure" id="d_interestDiff">$0</div>
+      </div>
+    </div>
+  </div>
+  <article class="guide">
+    <h3>Snowball vs. Avalanche</h3>
+    <p>The snowball method pays off the smallest balance first regardless of interest rate, building momentum through quick wins. The avalanche method targets the highest-interest debt first, which minimizes total interest paid mathematically. Snowball tends to help with motivation; avalanche tends to save more money.</p>
+    <h3>When Each Makes Sense</h3>
+    <p>If staying motivated is the biggest challenge, snowball's early wins can help you stick with the plan. If the interest rate gap between debts is large, avalanche's savings can be substantial enough to outweigh the psychological benefit of quick wins.</p>
+    <div class="disclaimer">Estimates only. Assumes minimum payments stay level and extra payments go to the targeted debt each month.</div>
+  </article>
+</section><section class="related"><h2>Explore More Calculators</h2><div class="related-grid"><a class="related-card" href="mortgage-calculator.html"><strong>Mortgage Calculator</strong><span>Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.</span></a><a class="related-card" href="loan-calculator.html"><strong>Loan & EMI Calculator</strong><span>Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.</span></a><a class="related-card" href="paycheck-calculator.html"><strong>Paycheck Calculator</strong><span>Estimate 2026 federal income tax, FICA, pre-tax deductions, and take-home pay.</span></a></div></section></main><footer class="site-footer"><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div><div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div></footer><script>function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+/* ---------- DEBT PAYOFF (SNOWBALL VS AVALANCHE) ---------- */
+(function(){
+  const ids = ['d_bal1','d_rate1','d_min1','d_bal2','d_rate2','d_min2','d_bal3','d_rate3','d_min3','d_extra'];
+  const els = {}; ids.forEach(id=> els[id]=document.getElementById(id));
+
+  function simulate(debts, extra, order){
+    let list = debts.filter(d=>d.balance>0).map(d=>({...d}));
+    list.sort((a,b)=> order==='snowball' ? a.balance-b.balance : b.rate-a.rate);
+    let months = 0, totalInterest = 0;
+    while(list.some(d=>d.balance>0.5) && months < 1200){
+      months++;
+      let pool = extra;
+      list.forEach(d=>{
+        if(d.balance<=0) return;
+        const ip = d.balance*(d.rate/100/12);
+        totalInterest += ip;
+        d.balance += ip;
+        const pay = Math.min(d.min, d.balance);
+        d.balance -= pay;
+      });
+      for(const d of list){
+        if(d.balance>0.5 && pool>0){
+          const extraPay = Math.min(pool, d.balance);
+          d.balance -= extraPay;
+          pool -= extraPay;
+        }
+      }
+    }
+    return {months, totalInterest};
+  }
+
+  function calculate(){
+    const debts = [
+      {balance: parseFloat(els.d_bal1.value)||0, rate: parseFloat(els.d_rate1.value)||0, min: parseFloat(els.d_min1.value)||0},
+      {balance: parseFloat(els.d_bal2.value)||0, rate: parseFloat(els.d_rate2.value)||0, min: parseFloat(els.d_min2.value)||0},
+      {balance: parseFloat(els.d_bal3.value)||0, rate: parseFloat(els.d_rate3.value)||0, min: parseFloat(els.d_min3.value)||0}
+    ];
+    const extra = parseFloat(els.d_extra.value)||0;
+    document.getElementById('d_extraVal').textContent = fmt(extra);
+
+    const snowball = simulate(debts, extra, 'snowball');
+    const avalanche = simulate(debts, extra, 'avalanche');
+
+    document.getElementById('d_snowballMonths').textContent = snowball.months>=1200?'—':snowball.months;
+    document.getElementById('d_avalancheMonths').textContent = avalanche.months>=1200?'—':avalanche.months;
+    document.getElementById('d_snowballInterest').textContent = fmt(snowball.totalInterest);
+    document.getElementById('d_avalancheInterest').textContent = fmt(avalanche.totalInterest);
+    document.getElementById('d_interestDiff').textContent = fmt(Math.max(snowball.totalInterest - avalanche.totalInterest,0));
+  }
+  ids.forEach(id=>{ els[id].addEventListener('input', calculate); els[id].addEventListener('change', calculate); });
+  calculate();
+})();
+/* ---------- SCHEDULE TOGGLES ---------- */
+document.querySelectorAll('.schedule-toggle').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const table = document.getElementById(this.dataset.target);
+    table.classList.toggle('open');
+    const isOpen = table.classList.contains('open');
+    this.textContent = this.textContent.replace(isOpen ? '↓' : '↑', isOpen ? '↑' : '↓').replace('View', isOpen ? 'Hide' : 'View').replace('Hide full', isOpen ? 'Hide full' : 'View full');
+  });
+});</script></body></html>

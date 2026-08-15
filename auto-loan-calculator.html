@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Loan Calculator | Pinnacle Financial Tools</title>
+<meta name="description" content="Estimate a vehicle payment, interest cost, sales tax, and total purchase cost.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://pinnacle-financial-tools.netlify.app/auto-loan-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body><header class="site"><div class="site-inner"><div class="logo"><a class="brand-link" href="index.html"><span class="mark"></span>Pinnacle Financial Tools</a></div><nav class="site"><a href="index.html#calculators">Calculators</a><a href="about.html">About</a><a href="methodology.html">Methodology</a></nav></div></header><main><div class="breadcrumbs"><a href="index.html">All Calculators</a> / Auto Loan Calculator</div><section class="tool" id="auto">
+  <div class="tool-hero">
+    <div class="eyebrow">Auto</div>
+    <h2 class="tool-title">Auto Loan Calculator</h2>
+    <p class="lede">Estimate your monthly car payment, total interest, and full cost of the vehicle including sales tax.</p>
+  </div>
+  <div class="calc-wrap">
+    <div class="panel">
+      <div class="field">
+        <label>Vehicle price <span class="val mono" id="a_priceVal">$32,000</span></label>
+        <input type="range" id="a_price" min="3000" max="120000" step="500" value="32000">
+      </div>
+      <div class="field">
+        <label>Down payment / trade-in value <span class="val mono" id="a_downVal">$3,000</span></label>
+        <input type="range" id="a_down" min="0" max="50000" step="500" value="3000">
+      </div>
+      <div class="field">
+        <label>Interest rate (annual)</label>
+        <div class="numfield"><input type="number" id="a_rate" value="7.5" step="0.1" min="0" max="30"><span>%</span></div>
+      </div>
+      <div class="field">
+        <label>Loan term</label>
+        <div class="numfield"><input type="number" id="a_term" value="60" step="1" min="12" max="96"><span>months</span></div>
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>Sales tax rate</label>
+        <div class="numfield"><input type="number" id="a_taxRate" value="6.5" step="0.1" min="0" max="12"><span>%</span></div>
+      </div>
+    </div>
+    <div class="result-panel">
+      <div class="result-top">
+        <div class="result-block"><div class="label">Monthly payment</div><div class="figure" id="a_monthly">$0</div></div>
+        <div class="result-block small"><div class="label">Loan amount financed</div><div class="figure" id="a_financed">$0</div></div>
+      </div>
+      <div>
+        <div class="split-bar"><div id="a_splitP" style="background:var(--principal); width:50%"></div><div id="a_splitI" style="background:var(--interest); width:50%"></div></div>
+        <div class="split-legend" style="margin-top:10px;">
+          <span><span class="dot" style="background:var(--principal);"></span>Principal <span id="a_principalLabel" class="mono"></span></span>
+          <span><span class="dot" style="background:var(--interest);"></span>Total interest <span id="a_interestLabel" class="mono"></span></span>
+        </div>
+      </div>
+      <table class="breakdown-table">
+        <tr><td>Sales tax</td><td id="a_rowTax">$0</td></tr>
+        <tr><td>Total interest paid</td><td id="a_rowInterest">$0</td></tr>
+        <tr><td>Total cost of vehicle</td><td id="a_rowTotal">$0</td></tr>
+      </table>
+    </div>
+  </div>
+  <article class="guide">
+    <h3>New vs. Used Loan Rates</h3>
+    <p>New car loans typically carry lower interest rates than used car loans, since lenders see less risk in a vehicle with a known history and higher resale value. The gap can be a percentage point or more, so it's worth checking rates for both if you're deciding between them.</p>
+    <h3>How Trade-In Value and Sales Tax Factor In</h3>
+    <p>A trade-in reduces the amount you need to finance, and in many states it also reduces the taxable purchase price, meaning you pay sales tax only on the difference between the new vehicle's price and your trade-in's value - a meaningful savings depending on your state's rules.</p>
+    <h3>Loan Term Tradeoffs</h3>
+    <p>A longer loan term lowers your monthly payment but increases the total interest paid and extends the time you owe more than the car is worth. Shorter terms cost more per month but save significantly on total interest over the life of the loan.</p>
+    <div class="disclaimer">Estimates only. Actual auto loan terms, taxes, and fees vary by lender and state.</div>
+  </article>
+</section><section class="related"><h2>Explore More Calculators</h2><div class="related-grid"><a class="related-card" href="mortgage-calculator.html"><strong>Mortgage Calculator</strong><span>Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.</span></a><a class="related-card" href="loan-calculator.html"><strong>Loan & EMI Calculator</strong><span>Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.</span></a><a class="related-card" href="paycheck-calculator.html"><strong>Paycheck Calculator</strong><span>Estimate 2026 federal income tax, FICA, pre-tax deductions, and take-home pay.</span></a></div></section></main><footer class="site-footer"><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div><div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div></footer><script>function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+/* ---------- AUTO LOAN ---------- */
+(function(){
+  const price = document.getElementById('a_price');
+  const down = document.getElementById('a_down');
+  const rate = document.getElementById('a_rate');
+  const term = document.getElementById('a_term');
+  const taxRate = document.getElementById('a_taxRate');
+
+  function calculate(){
+    const p = parseFloat(price.value);
+    const d = parseFloat(down.value);
+    const tax = p * (parseFloat(taxRate.value)||0) / 100;
+    const financed = Math.max(p + tax - d, 0);
+    const annualRate = parseFloat(rate.value) || 0;
+    const monthlyRate = annualRate/100/12;
+    const n = parseInt(term.value) || 1;
+
+    document.getElementById('a_priceVal').textContent = fmt(p);
+    document.getElementById('a_downVal').textContent = fmt(d);
+
+    let monthly = monthlyRate === 0 ? financed/n : financed * (monthlyRate*Math.pow(1+monthlyRate,n))/(Math.pow(1+monthlyRate,n)-1);
+    if(!isFinite(monthly)) monthly = 0;
+    const totalPaid = monthly * n;
+    const totalInterest = totalPaid - financed;
+
+    document.getElementById('a_monthly').textContent = fmt(monthly);
+    document.getElementById('a_financed').textContent = fmt(financed);
+    document.getElementById('a_rowTax').textContent = fmt(tax);
+    document.getElementById('a_rowInterest').textContent = fmt(totalInterest);
+    document.getElementById('a_rowTotal').textContent = fmt(p + tax + totalInterest);
+    document.getElementById('a_principalLabel').textContent = fmt(financed);
+    document.getElementById('a_interestLabel').textContent = fmt(totalInterest);
+
+    const totalCost = financed + totalInterest;
+    const pShare = totalCost>0 ? financed/totalCost*100 : 50;
+    document.getElementById('a_splitP').style.width = pShare + '%';
+    document.getElementById('a_splitI').style.width = (100-pShare) + '%';
+  }
+  [price, down, rate, term, taxRate].forEach(el=>{ el.addEventListener('input', calculate); el.addEventListener('change', calculate); });
+  calculate();
+})();
+/* ---------- SCHEDULE TOGGLES ---------- */
+document.querySelectorAll('.schedule-toggle').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const table = document.getElementById(this.dataset.target);
+    table.classList.toggle('open');
+    const isOpen = table.classList.contains('open');
+    this.textContent = this.textContent.replace(isOpen ? '↓' : '↑', isOpen ? '↑' : '↓').replace('View', isOpen ? 'Hide' : 'View').replace('Hide full', isOpen ? 'Hide full' : 'View full');
+  });
+});</script></body></html>
