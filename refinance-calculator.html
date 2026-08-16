@@ -27,6 +27,17 @@
         <label>Current interest rate</label>
         <div class="numfield"><input type="number" id="r_currentRate" value="7.2" step="0.05" min="0" max="20"><span>%</span></div>
       </div>
+     <div class="field">
+  <label>Current loan remaining term</label>
+  <select id="r_currentTerm">
+    <option value="30">30 years</option>
+    <option value="25">25 years</option>
+    <option value="20">20 years</option>
+    <option value="15">15 years</option>
+    <option value="10">10 years</option>
+    <option value="5">5 years</option>
+  </select>
+</div>
       <div class="field">
         <label>New interest rate</label>
         <div class="numfield"><input type="number" id="r_newRate" value="6.1" step="0.05" min="0" max="20"><span>%</span></div>
@@ -69,6 +80,7 @@
 (function(){
   const balance = document.getElementById('r_balance');
   const currentRate = document.getElementById('r_currentRate');
+  const currentTerm = document.getElementById('r_currentTerm');
   const newRate = document.getElementById('r_newRate');
   const newTerm = document.getElementById('r_newTerm');
   const closing = document.getElementById('r_closing');
@@ -83,17 +95,18 @@
     const bal = parseFloat(balance.value);
     const curRate = parseFloat(currentRate.value)||0;
     const nuRate = parseFloat(newRate.value)||0;
+    const curTermYears = parseInt(currentTerm.value);
     const nuTermYears = parseInt(newTerm.value);
     const closingCost = parseFloat(closing.value)||0;
-
+    
     document.getElementById('r_balanceVal').textContent = fmt(bal);
     document.getElementById('r_closingVal').textContent = fmt(closingCost);
 
-    // assume current loan has same term remaining as new term for a fair lifetime interest comparison estimate
-    const curMonthly = pmt(bal, curRate/100/12, nuTermYears*12);
+    
+    const curMonthly = pmt(bal, curRate/100/12, curTermYears*12);
     const nuMonthly = pmt(bal, nuRate/100/12, nuTermYears*12);
 
-    const curTotalInterest = curMonthly*nuTermYears*12 - bal;
+    const curTotalInterest = curMonthly*curTermYears*12 - bal;
     const nuTotalInterest = nuMonthly*nuTermYears*12 - bal;
 
     const monthlySavings = curMonthly - nuMonthly;
@@ -106,7 +119,7 @@
     document.getElementById('r_rowCurrentInterest').textContent = fmt(curTotalInterest);
     document.getElementById('r_rowNewInterest').textContent = fmt(nuTotalInterest);
   }
-  [balance, currentRate, newRate, newTerm, closing].forEach(el=>{ el.addEventListener('input', calculate); el.addEventListener('change', calculate); });
+  [balance, currentRate, currentTerm, newRate, newTerm, closing].forEach(...)
   calculate();
 })();
 /* ---------- SCHEDULE TOGGLES ---------- */
