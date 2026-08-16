@@ -15,7 +15,7 @@
   <div class="tool-hero">
     <div class="eyebrow">Home</div>
     <h2 class="tool-title">Refinance Calculator</h2>
-    <p class="lede">See your new payment, break-even point on closing costs, and lifetime interest savings from refinancing.</p>
+    <p class="lede">Estimate your new payment, closing-cost break-even point, and compare remaining interest costs between your current loan and a refinance.</p>
   </div>
   <div class="calc-wrap">
     <div class="panel">
@@ -119,7 +119,7 @@
     document.getElementById('r_rowCurrentInterest').textContent = fmt(curTotalInterest);
     document.getElementById('r_rowNewInterest').textContent = fmt(nuTotalInterest);
   }
-  [balance, currentRate, currentTerm, newRate, newTerm, closing].forEach(...)
+  [balance, currentRate, currentTerm, newRate, newTerm, closing].forEach(el=>{ el.addEventListener('input', calculate); el.addEventListener('change', calculate); });
   calculate();
 })();
 /* ---------- SCHEDULE TOGGLES ---------- */
