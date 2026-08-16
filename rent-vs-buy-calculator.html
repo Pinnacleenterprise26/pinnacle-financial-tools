@@ -4,137 +4,465 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rent vs. Buy Calculator | Pinnacle Financial Tools</title>
-<meta name="description" content="Compare estimated renting and buying costs across the years you plan to stay.">
+<meta name="description" content="Compare estimated renting and buying costs, including mortgage interest, property taxes, insurance, maintenance, closing costs, selling costs, appreciation, and rent increases.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://pinnacle-financial-tools.netlify.app/rent-vs-buy-calculator.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body><header class="site"><div class="site-inner"><div class="logo"><a class="brand-link" href="index.html"><span class="mark"></span>Pinnacle Financial Tools</a></div><nav class="site"><a href="index.html#calculators">Calculators</a><a href="about.html">About</a><a href="methodology.html">Methodology</a></nav></div></header><main><div class="breadcrumbs"><a href="index.html">All Calculators</a> / Rent vs. Buy Calculator</div><section class="tool" id="rentvsbuy">
+
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="logo">
+      <a class="brand-link" href="index.html">
+        <span class="mark"></span>Pinnacle Financial Tools
+      </a>
+    </div>
+    <nav class="site">
+      <a href="index.html#calculators">Calculators</a>
+      <a href="about.html">About</a>
+      <a href="methodology.html">Methodology</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<div class="breadcrumbs">
+  <a href="index.html">All Calculators</a> / Rent vs. Buy Calculator
+</div>
+
+<section class="tool" id="rentvsbuy">
+
   <div class="tool-hero">
     <div class="eyebrow">Home</div>
     <h2 class="tool-title">Rent vs. Buy Calculator</h2>
-    <p class="lede">Compare the total cost of renting versus buying over the years you plan to stay.</p>
+    <p class="lede">Compare the estimated net cost of renting and buying over the years you plan to stay, including major ownership costs, home appreciation, and rent increases.</p>
   </div>
+
   <div class="calc-wrap">
+
     <div class="panel">
+
       <div class="field">
         <label>Home price <span class="val mono" id="rb_priceVal">$400,000</span></label>
         <input type="range" id="rb_price" min="50000" max="2000000" step="5000" value="400000">
       </div>
+
       <div class="field">
         <label>Down payment <span class="val mono" id="rb_downVal">20% · $80,000</span></label>
         <input type="range" id="rb_down" min="0" max="50" step="1" value="20">
       </div>
+
       <div class="field">
         <label>Mortgage rate</label>
-        <div class="numfield"><input type="number" id="rb_rate" value="6.5" step="0.05" min="0" max="20"><span>%</span></div>
+        <div class="numfield">
+          <input type="number" id="rb_rate" value="6.5" step="0.05" min="0" max="20">
+          <span>%</span>
+        </div>
       </div>
+
       <div class="field">
-        <label>Monthly rent (equivalent home)</label>
-        <div class="numfield"><span>$</span><input type="number" id="rb_rent" value="2200" step="50" min="0"></div>
+        <label>Mortgage term</label>
+        <select id="rb_term">
+          <option value="30">30 years</option>
+          <option value="20">20 years</option>
+          <option value="15">15 years</option>
+        </select>
       </div>
+
+      <div class="field">
+        <label>Monthly rent for a comparable home</label>
+        <div class="numfield">
+          <span>$</span>
+          <input type="number" id="rb_rent" value="2200" step="50" min="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Annual rent increase</label>
+        <div class="numfield">
+          <input type="number" id="rb_rentGrowth" value="3" step="0.1" min="0" max="15">
+          <span>%</span>
+        </div>
+      </div>
+
       <div class="field">
         <label>Years you plan to stay <span class="val mono" id="rb_yearsVal">7 yrs</span></label>
         <input type="range" id="rb_years" min="1" max="30" step="1" value="7">
       </div>
+
+      <div class="field">
+        <label>Expected home appreciation</label>
+        <div class="numfield">
+          <input type="number" id="rb_appreciation" value="3" step="0.1" min="-10" max="15">
+          <span>%</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Property tax rate, annual</label>
+        <div class="numfield">
+          <input type="number" id="rb_propertyTax" value="1.1" step="0.05" min="0" max="10">
+          <span>%</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Homeowners insurance, annual</label>
+        <div class="numfield">
+          <span>$</span>
+          <input type="number" id="rb_insurance" value="1400" step="50" min="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Maintenance estimate, annual</label>
+        <div class="numfield">
+          <input type="number" id="rb_maintenance" value="1" step="0.1" min="0" max="10">
+          <span>%</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Monthly HOA fees</label>
+        <div class="numfield">
+          <span>$</span>
+          <input type="number" id="rb_hoa" value="0" step="10" min="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Estimated purchase closing costs</label>
+        <div class="numfield">
+          <input type="number" id="rb_buyClosing" value="3" step="0.1" min="0" max="15">
+          <span>%</span>
+        </div>
+      </div>
+
       <div class="field" style="margin-bottom:0;">
-        <label>Home appreciation (annual)</label>
-        <div class="numfield"><input type="number" id="rb_appreciation" value="3" step="0.1" min="0" max="15"><span>%</span></div>
+        <label>Estimated selling costs</label>
+        <div class="numfield">
+          <input type="number" id="rb_sellCosts" value="6" step="0.1" min="0" max="15">
+          <span>%</span>
+        </div>
       </div>
+
     </div>
+
     <div class="result-panel">
+
       <div class="result-top">
-        <div class="result-block small"><div class="label">Total cost of renting</div><div class="figure" id="rb_rentCost">$0</div></div>
-        <div class="result-block small"><div class="label">Total cost of buying</div><div class="figure" id="rb_buyCost">$0</div></div>
+        <div class="result-block small">
+          <div class="label">Estimated cost of renting</div>
+          <div class="figure" id="rb_rentCost">$0</div>
+        </div>
+
+        <div class="result-block small">
+          <div class="label">Estimated net cost of buying</div>
+          <div class="figure" id="rb_buyCost">$0</div>
+        </div>
       </div>
+
       <div class="result-block" style="border-top:1px solid rgba(255,255,255,.15); padding-top:18px;">
-        <div class="label" id="rb_winnerLabel">Result</div>
+        <div class="label" id="rb_winnerLabel">Estimated comparison</div>
         <div class="figure" id="rb_winnerFigure">-</div>
       </div>
+
       <table class="breakdown-table">
-        <tr><td>Estimated home value at end of period</td><td id="rb_rowHomeValue">$0</td></tr>
-        <tr><td>Mortgage interest paid over period</td><td id="rb_rowInterestPaid">$0</td></tr>
-        <tr><td>Total rent paid over period</td><td id="rb_rowRentPaid">$0</td></tr>
+        <tr><td>Estimated home value at end</td><td id="rb_rowHomeValue">$0</td></tr>
+        <tr><td>Remaining mortgage balance</td><td id="rb_rowBalance">$0</td></tr>
+        <tr><td>Estimated equity before selling costs</td><td id="rb_rowEquity">$0</td></tr>
+        <tr><td>Mortgage interest paid</td><td id="rb_rowInterestPaid">$0</td></tr>
+        <tr><td>Property taxes paid</td><td id="rb_rowPropertyTax">$0</td></tr>
+        <tr><td>Homeowners insurance paid</td><td id="rb_rowInsurance">$0</td></tr>
+        <tr><td>Estimated maintenance</td><td id="rb_rowMaintenance">$0</td></tr>
+        <tr><td>HOA fees paid</td><td id="rb_rowHoa">$0</td></tr>
+        <tr><td>Purchase closing costs</td><td id="rb_rowBuyClosing">$0</td></tr>
+        <tr><td>Estimated selling costs</td><td id="rb_rowSellCosts">$0</td></tr>
+        <tr><td>Estimated appreciation gain</td><td id="rb_rowAppreciation">$0</td></tr>
+        <tr><td>Total rent paid</td><td id="rb_rowRentPaid">$0</td></tr>
       </table>
+
     </div>
+
   </div>
+
   <article class="guide">
-    <h3>Hidden Costs of Homeownership</h3>
-    <p>Buying involves more than the mortgage payment - closing costs, maintenance, property tax, and insurance all add up. This calculator focuses on mortgage interest versus rent paid and home appreciation, but real decisions should also weigh maintenance costs, which commonly run 1-2% of home value per year.</p>
-    <h3>Opportunity Cost of a Down Payment</h3>
-    <p>Money used for a down payment could otherwise be invested. Whether buying wins financially over renting often comes down to how long you stay - the longer you stay, the more the fixed costs of buying (like closing costs) get spread out and outweighed by building equity.</p>
-    <div class="disclaimer">Estimates only. Does not include maintenance, property tax, insurance, or investment returns on a down payment invested elsewhere.</div>
+
+    <h3>How This Rent vs. Buy Comparison Works</h3>
+    <p>This calculator compares the estimated costs that generally do not become home equity. On the buying side, that includes mortgage interest, property taxes, homeowners insurance, maintenance, HOA fees, purchase closing costs, and estimated selling costs. Estimated home appreciation is treated as a financial benefit that reduces the net cost of ownership.</p>
+
+    <h3>Why the Down Payment Is Not Counted as a Lost Cost</h3>
+    <p>A down payment reduces the mortgage balance and becomes part of your home equity. Principal paid through monthly mortgage payments also builds equity. For that reason, this calculator does not treat the down payment or mortgage principal as money that simply disappears.</p>
+
+    <h3>Rent Can Change Over Time</h3>
+    <p>The renting calculation allows you to estimate an annual rent increase rather than assuming rent remains unchanged for the entire comparison period. Adjust the rate based on your own expectations and local market conditions.</p>
+
+    <h3>Use the Assumptions That Fit Your Situation</h3>
+    <p>Property taxes, insurance, maintenance, closing costs, HOA fees, appreciation, selling costs, and rent increases can vary substantially. The default values are planning assumptions only and should be changed to match the property and market you are evaluating.</p>
+
+    <div class="disclaimer">Planning estimate only. This calculator assumes the home is sold at the end of the selected period when estimating selling costs. It does not include tax deductions or credits, mortgage insurance, utilities, renter's insurance, financing of closing costs, investment returns that could have been earned on the down payment or other cash, or the time value of money. Results are estimates, not financial, tax, real estate, or lending advice.</div>
+
   </article>
-</section><section class="related"><h2>Explore More Calculators</h2><div class="related-grid"><a class="related-card" href="mortgage-calculator.html"><strong>Mortgage Calculator</strong><span>Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.</span></a><a class="related-card" href="loan-calculator.html"><strong>Loan & EMI Calculator</strong><span>Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.</span></a><a class="related-card" href="paycheck-calculator.html"><strong>Paycheck Calculator</strong><span>Estimate 2026 federal income tax, FICA, pre-tax deductions, and take-home pay.</span></a></div></section></main><footer class="site-footer"><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div><div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div></footer><script>function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+
+</section>
+
+<section class="related">
+  <h2>Explore More Calculators</h2>
+
+  <div class="related-grid">
+
+    <a class="related-card" href="mortgage-calculator.html">
+      <strong>Mortgage Calculator</strong>
+      <span>Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.</span>
+    </a>
+
+    <a class="related-card" href="loan-calculator.html">
+      <strong>Loan & EMI Calculator</strong>
+      <span>Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.</span>
+    </a>
+
+    <a class="related-card" href="paycheck-calculator.html">
+      <strong>Paycheck Calculator</strong>
+      <span>Estimate 2026 federal income tax, FICA, pre-tax deductions, and take-home pay.</span>
+    </a>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+
+  <div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div>
+
+  <div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div>
+
+</footer>
+
+<script>
+
+function fmt(n){
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
 /* ---------- RENT VS BUY ---------- */
+
 (function(){
+
   const price = document.getElementById('rb_price');
   const down = document.getElementById('rb_down');
   const rate = document.getElementById('rb_rate');
+  const term = document.getElementById('rb_term');
   const rent = document.getElementById('rb_rent');
+  const rentGrowth = document.getElementById('rb_rentGrowth');
   const years = document.getElementById('rb_years');
   const appreciation = document.getElementById('rb_appreciation');
+  const propertyTax = document.getElementById('rb_propertyTax');
+  const insurance = document.getElementById('rb_insurance');
+  const maintenance = document.getElementById('rb_maintenance');
+  const hoa = document.getElementById('rb_hoa');
+  const buyClosing = document.getElementById('rb_buyClosing');
+  const sellCosts = document.getElementById('rb_sellCosts');
 
   function calculate(){
-    const p = parseFloat(price.value);
-    const dPct = parseFloat(down.value);
-    const downAmt = p*dPct/100;
-    const loanAmt = p - downAmt;
-    const annualRate = parseFloat(rate.value)||0;
-    const monthlyRate = annualRate/100/12;
-    const yrs = parseInt(years.value);
-    const n = 30*12;
-    const monthlyRent = parseFloat(rent.value)||0;
-    const apprRate = parseFloat(appreciation.value)||0;
+
+    const p = parseFloat(price.value) || 0;
+    const dPct = parseFloat(down.value) || 0;
+    const downAmt = p * dPct / 100;
+    const loanAmt = Math.max(p - downAmt, 0);
+
+    const annualRate = parseFloat(rate.value) || 0;
+    const monthlyRate = annualRate / 100 / 12;
+
+    const termYears = parseInt(term.value) || 30;
+    const n = termYears * 12;
+
+    const monthlyRent = parseFloat(rent.value) || 0;
+    const rentGrowthRate = (parseFloat(rentGrowth.value) || 0) / 100;
+
+    const yrs = parseInt(years.value) || 1;
+
+    const apprRate = (parseFloat(appreciation.value) || 0) / 100;
+    const propertyTaxRate = (parseFloat(propertyTax.value) || 0) / 100;
+    const annualInsurance = parseFloat(insurance.value) || 0;
+    const maintenanceRate = (parseFloat(maintenance.value) || 0) / 100;
+    const monthlyHoa = parseFloat(hoa.value) || 0;
+    const buyClosingRate = (parseFloat(buyClosing.value) || 0) / 100;
+    const sellCostRate = (parseFloat(sellCosts.value) || 0) / 100;
 
     document.getElementById('rb_priceVal').textContent = fmt(p);
-    document.getElementById('rb_downVal').textContent = dPct+'% · '+fmt(downAmt);
-    document.getElementById('rb_yearsVal').textContent = yrs+' yrs';
+    document.getElementById('rb_downVal').textContent = dPct + '% · ' + fmt(downAmt);
+    document.getElementById('rb_yearsVal').textContent = yrs + ' yrs';
 
-    let monthlyPI = monthlyRate===0 ? loanAmt/n : loanAmt*(monthlyRate*Math.pow(1+monthlyRate,n))/(Math.pow(1+monthlyRate,n)-1);
-    if(!isFinite(monthlyPI)) monthlyPI = 0;
+    let monthlyPI = 0;
 
-    let balance = loanAmt, interestPaid = 0;
-    for(let m=1; m<=yrs*12; m++){
-      const ip = balance*monthlyRate;
-      const pp = monthlyPI - ip;
-      balance -= pp;
-      interestPaid += ip;
+    if(loanAmt > 0){
+      if(monthlyRate === 0){
+        monthlyPI = loanAmt / n;
+      } else {
+        monthlyPI =
+          loanAmt *
+          (monthlyRate * Math.pow(1 + monthlyRate, n)) /
+          (Math.pow(1 + monthlyRate, n) - 1);
+      }
     }
 
-    const homeValueFuture = p * Math.pow(1+apprRate/100, yrs);
-    const totalRentPaid = monthlyRent * 12 * yrs;
-    const buyCost = downAmt + interestPaid; // simplified: down payment + interest (equity not "lost")
+    if(!isFinite(monthlyPI)){
+      monthlyPI = 0;
+    }
+
+    let balance = loanAmt;
+    let interestPaid = 0;
+    let principalPaid = 0;
+
+    const mortgageMonthsModeled = Math.min(yrs * 12, n);
+
+    for(let m = 1; m <= mortgageMonthsModeled && balance > 0.01; m++){
+
+      const interestPortion = balance * monthlyRate;
+
+      let payment = monthlyPI;
+
+      if(payment > balance + interestPortion){
+        payment = balance + interestPortion;
+      }
+
+      let principalPortion = payment - interestPortion;
+
+      if(principalPortion > balance){
+        principalPortion = balance;
+      }
+
+      balance -= principalPortion;
+      interestPaid += interestPortion;
+      principalPaid += principalPortion;
+    }
+
+    if(balance < 0.01){
+      balance = 0;
+    }
+
+    let totalRentPaid = 0;
+
+    for(let y = 0; y < yrs; y++){
+      const rentForYear = monthlyRent * 12 * Math.pow(1 + rentGrowthRate, y);
+      totalRentPaid += rentForYear;
+    }
+
+    let propertyTaxPaid = 0;
+    let maintenancePaid = 0;
+
+    for(let y = 0; y < yrs; y++){
+
+      const estimatedValueForYear = p * Math.pow(1 + apprRate, y);
+
+      propertyTaxPaid += estimatedValueForYear * propertyTaxRate;
+      maintenancePaid += estimatedValueForYear * maintenanceRate;
+    }
+
+    const insurancePaid = annualInsurance * yrs;
+    const hoaPaid = monthlyHoa * 12 * yrs;
+
+    const homeValueFuture = p * Math.pow(1 + apprRate, yrs);
+
+    const purchaseClosingCosts = p * buyClosingRate;
+    const estimatedSellingCosts = homeValueFuture * sellCostRate;
+
+    const appreciationGain = homeValueFuture - p;
+
+    const estimatedEquityBeforeSellingCosts = homeValueFuture - balance;
+
+    const buyCost =
+      interestPaid +
+      propertyTaxPaid +
+      insurancePaid +
+      maintenancePaid +
+      hoaPaid +
+      purchaseClosingCosts +
+      estimatedSellingCosts -
+      appreciationGain;
+
     const rentCost = totalRentPaid;
 
     document.getElementById('rb_rentCost').textContent = fmt(rentCost);
     document.getElementById('rb_buyCost').textContent = fmt(buyCost);
+
     document.getElementById('rb_rowHomeValue').textContent = fmt(homeValueFuture);
+    document.getElementById('rb_rowBalance').textContent = fmt(balance);
+    document.getElementById('rb_rowEquity').textContent = fmt(estimatedEquityBeforeSellingCosts);
+
     document.getElementById('rb_rowInterestPaid').textContent = fmt(interestPaid);
+    document.getElementById('rb_rowPropertyTax').textContent = fmt(propertyTaxPaid);
+    document.getElementById('rb_rowInsurance').textContent = fmt(insurancePaid);
+    document.getElementById('rb_rowMaintenance').textContent = fmt(maintenancePaid);
+    document.getElementById('rb_rowHoa').textContent = fmt(hoaPaid);
+    document.getElementById('rb_rowBuyClosing').textContent = fmt(purchaseClosingCosts);
+    document.getElementById('rb_rowSellCosts').textContent = fmt(estimatedSellingCosts);
+    document.getElementById('rb_rowAppreciation').textContent = fmt(appreciationGain);
     document.getElementById('rb_rowRentPaid').textContent = fmt(totalRentPaid);
 
     const diff = rentCost - buyCost;
+
     const winnerLabel = document.getElementById('rb_winnerLabel');
     const winnerFigure = document.getElementById('rb_winnerFigure');
-    if(diff > 0){
-      winnerLabel.textContent = 'Buying looks cheaper by';
+
+    if(Math.abs(diff) < 1){
+
+      winnerLabel.textContent = 'Estimated costs are approximately equal';
+      winnerFigure.textContent = '$0';
+
+    } else if(diff > 0){
+
+      winnerLabel.textContent = 'Under these assumptions, buying is lower by';
       winnerFigure.textContent = fmt(diff);
+
     } else {
-      winnerLabel.textContent = 'Renting looks cheaper by';
+
+      winnerLabel.textContent = 'Under these assumptions, renting is lower by';
       winnerFigure.textContent = fmt(-diff);
     }
   }
-  [price, down, rate, rent, years, appreciation].forEach(el=>{ el.addEventListener('input', calculate); el.addEventListener('change', calculate); });
-  calculate();
-})();
-/* ---------- SCHEDULE TOGGLES ---------- */
-document.querySelectorAll('.schedule-toggle').forEach(btn=>{
-  btn.addEventListener('click', function(){
-    const table = document.getElementById(this.dataset.target);
-    table.classList.toggle('open');
-    const isOpen = table.classList.contains('open');
-    this.textContent = this.textContent.replace(isOpen ? '↓' : '↑', isOpen ? '↑' : '↓').replace('View', isOpen ? 'Hide' : 'View').replace('Hide full', isOpen ? 'Hide full' : 'View full');
+
+  [
+    price,
+    down,
+    rate,
+    term,
+    rent,
+    rentGrowth,
+    years,
+    appreciation,
+    propertyTax,
+    insurance,
+    maintenance,
+    hoa,
+    buyClosing,
+    sellCosts
+  ].forEach(el => {
+
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+
   });
-});</script></body></html>
+
+  calculate();
+
+})();
+
+</script>
+
+</body>
+</html>
