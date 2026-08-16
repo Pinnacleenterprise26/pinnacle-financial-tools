@@ -42,11 +42,11 @@
         </select>
       </div>
       <div class="field">
-        <label>Pre-tax 401(k) contribution <span class="val mono" id="p_k401Val">5%</span></label>
+        <label>Pre-tax 401(k) contribution, 2026 regular limit $24,500 <span class="val mono" id="p_k401Val">5%</span></label>
         <input type="range" id="p_k401" min="0" max="25" step="1" value="5">
       </div>
       <div class="field" style="margin-bottom:0;">
-        <label>Monthly health insurance premium</label>
+        <label>Monthly health insurance premium (assumed pre-tax for federal income tax only)</label>
         <div class="numfield"><span>$</span><input type="number" id="p_healthIns" value="150" step="10" min="0"></div>
       </div>
     </div>
@@ -74,7 +74,7 @@
         <tr><td>Health insurance (annual)</td><td id="p_rowHealth">$0</td></tr>
         <tr><td>Federal income tax (est.)</td><td id="p_rowFedTax">$0</td></tr>
         <tr><td>Social Security (6.2%)</td><td id="p_rowSS">$0</td></tr>
-        <tr><td>Medicare (1.45%)</td><td id="p_rowMedicare">$0</td></tr>
+        <tr><td>Medicare (1.45% + 0.9% over $200k)</td><td id="p_rowMedicare">$0</td></tr>
       </table>
     </div>
   </div>
@@ -83,12 +83,12 @@
     <h3>What Gets Deducted From Your Paycheck</h3>
     <p>Gross pay is what you earn before anything is taken out. Net pay is what's left after federal income tax, Social Security, Medicare, and pre-tax deductions like 401(k) contributions or health insurance are subtracted.</p>
     <h3>Federal Income Tax vs. FICA</h3>
-    <p>Federal income tax uses progressive brackets - different portions of income are taxed at different rates. FICA is separate: Social Security is withheld at 6.2% up to an annual wage cap, and Medicare at 1.45% with no cap.</p>
+     <p>Federal income tax uses progressive brackets, so different portions of taxable income are taxed at different rates. FICA is separate: Social Security is withheld at 6.2% up to the annual wage cap, while Medicare is withheld at 1.45% on all wages. Employers also withhold an additional 0.9% Medicare tax on wages above $200,000 during the calendar year.</p>
     <h3>How Pre-Tax Deductions Lower Your Tax Bill</h3>
     <p>Contributing to a traditional 401(k) reduces taxable income before federal tax is calculated, which is why raising your contribution often shrinks your paycheck by less than expected - part of it would've gone to taxes anyway.</p>
     <h3>Why Your Actual Paycheck May Differ</h3>
     <p>This gives a solid estimate, but real paychecks vary with state/local tax (not included here), Roth vs. traditional 401(k), HSA/FSA contributions, and bonus or overtime taxation. Treat this as a planning estimate.</p>
-    <div class="disclaimer">2026 planning estimate only. Does not include state or local income tax, tax credits, Additional Medicare Tax, special deductions, or every withholding rule. Consult the IRS or a qualified tax professional for exact figures.</div>
+    <div class="disclaimer">2026 planning estimate only. Uses annual federal tax brackets and the standard deduction rather than employer Form W-4 withholding tables. Does not include state or local income tax, tax credits, itemized deductions, or every payroll adjustment. Health insurance is assumed pre-tax for the federal income tax estimate only. Consult the IRS or a qualified tax professional for exact figures.</div>
   <div class="source-note"><strong>2026 tax basis:</strong> Federal bracket and standard-deduction values are based on IRS tax year 2026 inflation adjustments. The Social Security taxable wage base is $184,500 for 2026. This tool is a simplified annual estimate, not an employer payroll withholding engine.</div></article>
 </section><section class="related"><h2>Explore More Calculators</h2><div class="related-grid"><a class="related-card" href="mortgage-calculator.html"><strong>Mortgage Calculator</strong><span>Estimate principal, interest, property taxes, insurance, HOA fees, and review an amortization schedule.</span></a><a class="related-card" href="loan-calculator.html"><strong>Loan & EMI Calculator</strong><span>Estimate monthly payments, total repayment, payoff time, and the impact of extra payments.</span></a><a class="related-card" href="auto-loan-calculator.html"><strong>Auto Loan Calculator</strong><span>Estimate a vehicle payment, interest cost, sales tax, and total purchase cost.</span></a></div></section></main><footer class="site-footer"><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="methodology.html">Methodology</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div>Pinnacle Financial Tools: free planning calculators from Pinnacle Enterprise Services.</div><div class="updated">Estimates only. Not financial, investment, tax, legal, lending, or accounting advice.</div></footer><script>function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
 /* ---------- PAYCHECK ---------- */
@@ -129,14 +129,15 @@
     document.getElementById('p_salaryVal').textContent = fmt(gross);
     document.getElementById('p_k401Val').textContent = k401.value + '%';
 
-    const k401Amount = gross * k401pct;
+    const k401Amount = Math.min(gross * k401pct, 24500);
     const preTaxDeductions = k401Amount + healthAnnual;
     const taxableIncome = Math.max(gross - preTaxDeductions - standardDeduction[status], 0);
 
     const fedTax = calcFederalTax(taxableIncome, status);
     const ssWageCap = 184500;
     const ss = Math.min(gross, ssWageCap) * 0.062;
-    const medicare = gross * 0.0145;
+    const additionalMedicare = Math.max(gross - 200000, 0) * 0.009;
+    const medicare = gross * 0.0145 + additionalMedicare;
 
     const totalTax = fedTax + ss + medicare;
     const netAnnual = gross - preTaxDeductions - totalTax;
